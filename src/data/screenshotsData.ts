@@ -1,5 +1,4 @@
 import { ScreenshotFeature } from '../types';
-import { getAssetUrl } from '../utils/navigation';
 
 export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
   {
@@ -15,8 +14,8 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'Private Masking display toggle support'
     ],
     screenKey: 'dashboard',
-    imageFileName: 'ProfileOS Main Workspace.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/ProfileOS Main Workspace.png')
+    imageFileName: 'dashboard.png',
+    imageSrc: 'screenshots/dashboard.png'
   },
   {
     id: 'profiles',
@@ -31,8 +30,8 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'New profile creation and preset import tools'
     ],
     screenKey: 'profiles',
-    imageFileName: 'Profiles Management.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/Profiles Management.png')
+    imageFileName: 'profiles.png',
+    imageSrc: 'screenshots/profiles.png'
   },
   {
     id: 'qr',
@@ -47,8 +46,8 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'Clean bottom-sheet presentation'
     ],
     screenKey: 'qr',
-    imageFileName: 'Instant QR Presentation.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/Instant QR Presentation.png')
+    imageFileName: 'qr.png',
+    imageSrc: 'screenshots/qr.png'
   },
   {
     id: 'handle-details',
@@ -63,8 +62,8 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'Dynamic variable token insertion'
     ],
     screenKey: 'handle-details',
-    imageFileName: 'Handle Details & Action Sheet.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/Handle Details & Action Sheet.png')
+    imageFileName: 'handle-details.png',
+    imageSrc: 'screenshots/handle-details.png'
   },
   {
     id: 'add-handle',
@@ -79,8 +78,8 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'Custom URL and deep-link override support'
     ],
     screenKey: 'add-handle',
-    imageFileName: 'Add Social Handle.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/Add Social Handle.png')
+    imageFileName: 'add-handle.png',
+    imageSrc: 'screenshots/add-handle.png'
   },
   {
     id: 'share-all',
@@ -95,8 +94,8 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'Clean typography with platform name and URL pairing'
     ],
     screenKey: 'share-all',
-    imageFileName: 'Share All Handles.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/Share All Handles.png')
+    imageFileName: 'share-all.png',
+    imageSrc: 'screenshots/share-all.png'
   },
   {
     id: 'reorder',
@@ -110,8 +109,8 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'Instant persistent ordering in your profile workspace'
     ],
     screenKey: 'reorder',
-    imageFileName: 'Reordering Mode.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/Reordering Mode.png')
+    imageFileName: 'reorder.png',
+    imageSrc: 'screenshots/reorder.png'
   },
   {
     id: 'settings',
@@ -126,8 +125,8 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'Swipe Actions & Gesture customization'
     ],
     screenKey: 'settings',
-    imageFileName: 'Personalize Workspace.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/Personalize Workspace.png')
+    imageFileName: 'settings.png',
+    imageSrc: 'screenshots/settings.png'
   },
   {
     id: 'edit-profile',
@@ -142,8 +141,8 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'Profile archetype identity management'
     ],
     screenKey: 'edit-profile',
-    imageFileName: 'Edit Profile Identity.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/Edit Profile Identity.png')
+    imageFileName: 'edit-profile.png',
+    imageSrc: 'screenshots/edit-profile.png'
   },
   {
     id: 'select-platform',
@@ -158,7 +157,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
       'Custom website & deep link flexibility'
     ],
     screenKey: 'select-platform',
-    imageFileName: 'Select Platform Catalogue.png',
-    imageSrc: getAssetUrl('assets/App Screenshots/Select Platform Catalogue.png')
+    imageFileName: 'select-platform.png',
+    imageSrc: 'screenshots/select-platform.png'
   }
 ];

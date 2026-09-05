@@ -67,11 +67,12 @@ export function getTabFromUrl(): PageTab {
 
 /**
  * Safely resolves any static asset path against the application base URL
- * (e.g. '/ProfileOS/assets/...' on GitHub Pages, or '/assets/...' on localhost)
+ * (e.g. '/ProfileOS/screenshots/...' on GitHub Pages, or '/screenshots/...' on localhost)
+ * Handles idempotency so multiple calls never duplicate the base path or URL encode twice.
  */
 export function getAssetUrl(relativePath: string): string {
   if (!relativePath) return '';
-  // Return early for external URLs or data URLs
+  // Return early for external URLs or data/blob URLs
   if (
     relativePath.startsWith('http://') ||
     relativePath.startsWith('https://') ||
@@ -81,8 +82,23 @@ export function getAssetUrl(relativePath: string): string {
     return relativePath;
   }
 
-  const clean = relativePath.replace(/^\/+/, '');
   const basePath = typeof window !== 'undefined' ? getBaseUrlPath().replace(/\/+$/, '') : '';
+
+  // Decode first to prevent %20 -> %2520 double encoding
+  let clean = relativePath;
+  try {
+    clean = decodeURI(clean);
+  } catch {
+    // Keep as is if decode fails
+  }
+
+  // If already prefixed with basePath, strip it so we don't duplicate it
+  if (basePath && clean.startsWith(basePath)) {
+    clean = clean.slice(basePath.length);
+  }
+
+  // Strip leading slashes
+  clean = clean.replace(/^\/+/, '');
 
   const resolved = basePath ? `${basePath}/${clean}` : `/${clean}`;
   return encodeURI(resolved);

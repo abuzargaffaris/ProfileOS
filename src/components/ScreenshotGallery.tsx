@@ -122,10 +122,17 @@ export const ScreenshotGallery: React.FC<ScreenshotGalleryProps> = ({ onOpenQrDe
                 </div>
 
                 <img
-                  src={getAssetUrl(screen.imageSrc || `assets/App Screenshots/${screen.imageFileName}`)}
+                  src={getAssetUrl(screen.imageSrc || `screenshots/${screen.screenKey}.png`)}
                   alt={screen.title}
                   className="w-full h-full object-cover object-top block"
                   loading="lazy"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.dataset.triedFallback) {
+                      target.dataset.triedFallback = 'true';
+                      target.src = getAssetUrl(`assets/App Screenshots/${screen.title}.png`);
+                    }
+                  }}
                 />
 
                 {/* Subtle glass glare */}
@@ -230,10 +237,17 @@ export const ScreenshotGallery: React.FC<ScreenshotGalleryProps> = ({ onOpenQrDe
 
                   {/* Screenshot Image */}
                   <img
-                    src={getAssetUrl(selectedScreen.imageSrc || `assets/App Screenshots/${selectedScreen.imageFileName}`)}
+                    src={getAssetUrl(selectedScreen.imageSrc || `screenshots/${selectedScreen.screenKey}.png`)}
                     alt={selectedScreen.title}
                     className="w-full h-full object-cover object-top block"
                     loading="eager"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.dataset.triedFallback) {
+                        target.dataset.triedFallback = 'true';
+                        target.src = getAssetUrl(`assets/App Screenshots/${selectedScreen.title}.png`);
+                      }
+                    }}
                   />
 
                   {/* Realistic Screen Glare reflection overlay */}

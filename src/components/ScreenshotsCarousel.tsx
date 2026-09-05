@@ -247,9 +247,16 @@ export const ScreenshotsCarousel: React.FC<ScreenshotsCarouselProps> = ({
                 {/* Screenshot Image */}
                 <img
                   key={currentScreen.id}
-                  src={getAssetUrl(currentScreen.imageSrc || `assets/App Screenshots/${currentScreen.imageFileName}`)}
+                  src={getAssetUrl(currentScreen.imageSrc || `screenshots/${currentScreen.screenKey}.png`)}
                   alt={currentScreen.title}
                   className="w-full h-full object-cover object-top block transition-opacity duration-300 animate-in fade-in"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.dataset.triedFallback) {
+                      target.dataset.triedFallback = 'true';
+                      target.src = getAssetUrl(`assets/App Screenshots/${currentScreen.title}.png`);
+                    }
+                  }}
                 />
 
                 {/* Realistic Screen Glare reflection overlay */}
@@ -447,10 +454,17 @@ export const ScreenshotsCarousel: React.FC<ScreenshotsCarouselProps> = ({
 
                   {/* Screenshot Image */}
                   <img
-                    src={getAssetUrl(lightboxScreen.imageSrc || `assets/App Screenshots/${lightboxScreen.imageFileName}`)}
+                    src={getAssetUrl(lightboxScreen.imageSrc || `screenshots/${lightboxScreen.screenKey}.png`)}
                     alt={lightboxScreen.title}
                     className="w-full h-full object-cover object-top block"
                     loading="eager"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.dataset.triedFallback) {
+                        target.dataset.triedFallback = 'true';
+                        target.src = getAssetUrl(`assets/App Screenshots/${lightboxScreen.title}.png`);
+                      }
+                    }}
                   />
 
                   {/* Realistic Screen Glare reflection overlay */}

@@ -1,0 +1,6 @@
+{
+  "name": "ProfileOS — Official Website",
+  "description": "The official product and showcase website for ProfileOS: All Your Profiles. One Place.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

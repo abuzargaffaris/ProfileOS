@@ -17,6 +17,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+      // Single Page Application clean URL unpacker from 404.html
+      (function() {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var redirect = params.get('p');
+          if (redirect) {
+            params.delete('p');
+            var cleanRoute = decodeURIComponent(redirect).replace(/^\/+/, '');
+            var basePath = window.location.pathname.replace(/\/$/, '');
+            var newSearch = params.toString() ? '?' + params.toString() : '';
+            var target = (cleanRoute ? basePath + '/' + cleanRoute : basePath + '/') + newSearch + window.location.hash;
+            window.history.replaceState(null, '', target);
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="bg-[#F8FAFB] text-[#0F172A] font-sans antialiased selection:bg-[#3B82F6] selection:text-white">
     <div id="root"></div>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ProfileOS — Loading</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Single Page Application redirect for GitHub Pages
+      // Enables clean URLs without '#' (e.g. /features instead of /#features)
+      (function () {
+        var path = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+
+        var segments = path.split('/').filter(Boolean);
+        var repoPrefix = '';
+        var cleanRoute = '';
+
+        // Check if hosted on *.github.io with a subfolder like /ProfileOS/
+        if (window.location.hostname.indexOf('github.io') !== -1 && segments.length >= 1) {
+          repoPrefix = '/' + segments[0];
+          cleanRoute = '/' + segments.slice(1).join('/');
+        } else {
+          cleanRoute = path;
+        }
+
+        var redirectTarget =
+          window.location.protocol +
+          '//' +
+          window.location.host +
+          repoPrefix +
+          '/?p=' +
+          encodeURIComponent(cleanRoute) +
+          (search ? '&q=' + encodeURIComponent(search.slice(1)) : '') +
+          hash;
+
+        window.location.replace(redirectTarget);
+      })();
+    </script>
+  </head>
+  <body style="font-family: system-ui, -apple-system, sans-serif; background: #F8FAFB; color: #64748B; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+    <div style="text-align: center;">
+      <div style="width: 28px; height: 28px; border: 3px solid #E2E8F0; border-top-color: #3B82F6; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 12px;"></div>
+      <p style="font-size: 14px; font-weight: 500; margin: 0;">Opening ProfileOS...</p>
+    </div>
+    <style>
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </body>
+</html>

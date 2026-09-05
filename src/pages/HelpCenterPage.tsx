@@ -93,32 +93,53 @@ export const HelpCenterPage: React.FC<HelpCenterPageProps> = ({
   const [interactiveTemplate, setInteractiveTemplate] = useState('[platform_name] — [display_name] — @[username]');
   const [selectedDemoPlatform, setSelectedDemoPlatform] = useState<'instagram' | 'github' | 'x' | 'linkedin'>('instagram');
 
-  // Handle URL hash routing or deep linking
+  // Handle URL routing or deep linking without '#'
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash.startsWith('help/')) {
-        const guide = hash.replace('help/', '') as GuideId;
-        setActiveGuideId(guide);
-      } else if (hash === 'help') {
-        setActiveGuideId(null);
-      }
+    const checkGuideFromUrl = () => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const guideParam = params.get('guide') as GuideId;
+        if (guideParam) {
+          setActiveGuideId(guideParam);
+          return;
+        }
+
+        // Legacy hash fallback
+        if (window.location.hash) {
+          const hash = window.location.hash.replace('#', '');
+          if (hash.startsWith('help/')) {
+            const guide = hash.replace('help/', '') as GuideId;
+            setActiveGuideId(guide);
+            return;
+          }
+        }
+      } catch {}
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    checkGuideFromUrl();
+    window.addEventListener('popstate', checkGuideFromUrl);
+    return () => window.removeEventListener('popstate', checkGuideFromUrl);
   }, []);
 
   const openGuide = (id: GuideId) => {
     setActiveGuideId(id);
-    window.location.hash = `help/${id}`;
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('guide', id);
+      url.hash = '';
+      window.history.pushState({ guide: id }, '', url.toString());
+    } catch {}
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const closeGuide = () => {
     setActiveGuideId(null);
-    window.location.hash = 'help';
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('guide');
+      url.hash = '';
+      window.history.pushState({ guide: null }, '', url.toString());
+    } catch {}
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

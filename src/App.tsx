@@ -14,70 +14,37 @@ import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsPage } from './pages/TermsPage';
 import { QrModalDemo } from './components/demos/QrModalDemo';
 import { ToastContainer } from './components/Toast';
+import { getTabFromUrl, updateUrlForTab } from './utils/navigation';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<PageTab>('home');
+  const [activeTab, setActiveTab] = useState<PageTab>(() => getTabFromUrl());
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const [selectedQrPlatform, setSelectedQrPlatform] = useState<SocialPlatform | undefined>(undefined);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
-  // Enforce home page by default on open & refresh, and synchronize navigation
+  // Synchronize clean URLs without '#' symbol and handle browser Back/Forward
   useEffect(() => {
-    // 1. Always enforce 'home' page on initial open and refresh
-    setActiveTab('home');
+    // 1. Detect tab from current URL and clean up any trailing hash or redirect params
+    const initialTab = getTabFromUrl();
+    setActiveTab(initialTab);
+    updateUrlForTab(initialTab, true);
 
-    // Clean up any stale hash from previous sessions or reloads
-    if (window.location.hash && window.location.hash !== '' && window.location.hash !== '#') {
-      window.history.replaceState(null, '', window.location.pathname + window.location.search);
-    }
-    window.scrollTo(0, 0);
-
-    // 2. Handle runtime back/forward browser navigation
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (!hash || hash === 'home') {
-        setActiveTab('home');
-      } else if (
-        [
-          'features',
-          'how-it-works',
-          'preview',
-          'platforms',
-          'help',
-          'about',
-          'privacy',
-          'terms'
-        ].includes(hash)
-      ) {
-        setActiveTab(hash as PageTab);
-      }
+    // 2. Handle browser back/forward buttons
+    const handlePopState = () => {
+      const currentTab = getTabFromUrl();
+      setActiveTab(currentTab);
     };
 
-    // 3. Clear hash on beforeunload so page reload always opens on home
-    const handleBeforeUnload = () => {
-      if (window.location.hash) {
-        window.history.replaceState(null, '', window.location.pathname + window.location.search);
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, []);
 
   const handleNavigate = (tab: PageTab) => {
     setActiveTab(tab);
-    if (tab === 'home') {
-      if (window.location.hash) {
-        window.history.replaceState(null, '', window.location.pathname + window.location.search);
-      }
-    } else {
-      window.location.hash = tab;
-    }
+    updateUrlForTab(tab, false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

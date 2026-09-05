@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { SCREENSHOTS_CATALOG } from '../data/screenshotsData';
 import { ScreenshotFeature } from '../types';
+import { getAssetUrl } from '../utils/navigation';
 import {
   Maximize2,
   X,
@@ -121,7 +122,7 @@ export const ScreenshotGallery: React.FC<ScreenshotGalleryProps> = ({ onOpenQrDe
                 </div>
 
                 <img
-                  src={encodeURI(screen.imageSrc || `/assets/App Screenshots/${screen.imageFileName}`)}
+                  src={getAssetUrl(screen.imageSrc || `assets/App Screenshots/${screen.imageFileName}`)}
                   alt={screen.title}
                   className="w-full h-full object-cover object-top block"
                   loading="lazy"
@@ -229,7 +230,7 @@ export const ScreenshotGallery: React.FC<ScreenshotGalleryProps> = ({ onOpenQrDe
 
                   {/* Screenshot Image */}
                   <img
-                    src={encodeURI(selectedScreen.imageSrc || `/assets/App Screenshots/${selectedScreen.imageFileName}`)}
+                    src={getAssetUrl(selectedScreen.imageSrc || `assets/App Screenshots/${selectedScreen.imageFileName}`)}
                     alt={selectedScreen.title}
                     className="w-full h-full object-cover object-top block"
                     loading="eager"

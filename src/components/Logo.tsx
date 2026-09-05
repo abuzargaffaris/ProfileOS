@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { getAssetUrl } from '../utils/navigation';
 
 interface LogoProps {
   className?: string;
@@ -6,17 +7,13 @@ interface LogoProps {
   onClick?: () => void;
 }
 
-// Protected internal branding asset source
-const BRAND_ASSET_URI = '/ProfileOS Homepage Logo.png';
-
 export const ProfileOSLogo: React.FC<LogoProps> = ({
   className = '',
   size = 'md',
   onClick
 }) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
+  const [imgError, setImgError] = useState(false);
+  const [currentSrcIndex, setCurrentSrcIndex] = useState(0);
 
   // Height configurations per breakpoint / size
   const sizeHeights: Record<string, number> = {
@@ -28,56 +25,21 @@ export const ProfileOSLogo: React.FC<LogoProps> = ({
 
   const currentHeight = sizeHeights[size] || 36;
 
-  useEffect(() => {
-    let isMounted = true;
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
+  // Candidates for logo asset path to guarantee finding the image on any host
+  const candidates = [
+    getAssetUrl('ProfileOS Homepage Logo.png'),
+    getAssetUrl('logo.png'),
+    getAssetUrl('logo-trimmed.png'),
+    getAssetUrl('logo.svg')
+  ];
 
-    img.onload = () => {
-      if (!isMounted) return;
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      const naturalWidth = img.naturalWidth || 1555;
-      const naturalHeight = img.naturalHeight || 367;
-      const aspectRatio = naturalWidth / naturalHeight;
-
-      const dpr = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio || 1, 3) : 2;
-      const targetHeight = currentHeight;
-      const targetWidth = Math.round(targetHeight * aspectRatio);
-
-      // Set physical resolution scaled by DPR for sharp anti-aliased rendering
-      canvas.width = targetWidth * dpr;
-      canvas.height = targetHeight * dpr;
-
-      // Set CSS display dimensions
-      canvas.style.width = `${targetWidth}px`;
-      canvas.style.height = `${targetHeight}px`;
-
-      ctx.scale(dpr, dpr);
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-
-      // Clear & draw image onto canvas
-      ctx.clearRect(0, 0, targetWidth, targetHeight);
-      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-
-      setIsLoaded(true);
-    };
-
-    img.onerror = () => {
-      if (isMounted) setHasError(true);
-    };
-
-    img.src = BRAND_ASSET_URI;
-
-    return () => {
-      isMounted = false;
-    };
-  }, [currentHeight]);
+  const handleImageError = () => {
+    if (currentSrcIndex < candidates.length - 1) {
+      setCurrentSrcIndex((prev) => prev + 1);
+    } else {
+      setImgError(true);
+    }
+  };
 
   return (
     <div
@@ -101,31 +63,24 @@ export const ProfileOSLogo: React.FC<LogoProps> = ({
         WebkitTouchCallout: 'none'
       }}
     >
-      {!hasError ? (
+      {!imgError ? (
         <div className="relative flex items-center">
-          {/* Protected Canvas Rendering (No direct <img> tag for right-click save/extraction) */}
-          <canvas
-            ref={canvasRef}
-            className={`transition-opacity duration-200 pointer-events-none ${
-              isLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
+          {/* Native high-performance image with anti-extraction protection */}
+          <img
+            src={candidates[currentSrcIndex]}
+            alt="ProfileOS Logo"
+            onError={handleImageError}
+            loading="eager"
+            draggable={false}
+            className="w-auto block object-contain pointer-events-none select-none transition-opacity duration-200"
             style={{
-              pointerEvents: 'none',
+              height: `${currentHeight}px`,
+              maxWidth: 'none',
               userSelect: 'none',
-              WebkitUserSelect: 'none'
+              WebkitUserSelect: 'none',
+              pointerEvents: 'none'
             }}
           />
-
-          {/* Loading placeholder skeleton */}
-          {!isLoaded && (
-            <div
-              className="animate-pulse bg-slate-200/70 rounded-md"
-              style={{
-                height: `${currentHeight}px`,
-                width: `${Math.round(currentHeight * 4.2)}px`
-              }}
-            />
-          )}
 
           {/* Transparent Anti-Extraction Shield Overlay */}
           <div

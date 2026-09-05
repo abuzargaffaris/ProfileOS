@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { SCREENSHOTS_CATALOG } from '../data/screenshotsData';
 import { ScreenshotFeature, PageTab } from '../types';
+import { getAssetUrl } from '../utils/navigation';
 import {
   ChevronLeft,
   ChevronRight,
@@ -246,7 +247,7 @@ export const ScreenshotsCarousel: React.FC<ScreenshotsCarouselProps> = ({
                 {/* Screenshot Image */}
                 <img
                   key={currentScreen.id}
-                  src={encodeURI(currentScreen.imageSrc || `/assets/App Screenshots/${currentScreen.imageFileName}`)}
+                  src={getAssetUrl(currentScreen.imageSrc || `assets/App Screenshots/${currentScreen.imageFileName}`)}
                   alt={currentScreen.title}
                   className="w-full h-full object-cover object-top block transition-opacity duration-300 animate-in fade-in"
                 />
@@ -446,7 +447,7 @@ export const ScreenshotsCarousel: React.FC<ScreenshotsCarouselProps> = ({
 
                   {/* Screenshot Image */}
                   <img
-                    src={encodeURI(lightboxScreen.imageSrc || `/assets/App Screenshots/${lightboxScreen.imageFileName}`)}
+                    src={getAssetUrl(lightboxScreen.imageSrc || `assets/App Screenshots/${lightboxScreen.imageFileName}`)}
                     alt={lightboxScreen.title}
                     className="w-full h-full object-cover object-top block"
                     loading="eager"

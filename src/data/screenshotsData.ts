@@ -1,4 +1,5 @@
 import { ScreenshotFeature } from '../types';
+import { getAssetUrl } from '../utils/navigation';
 
 export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
   {
@@ -15,7 +16,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'dashboard',
     imageFileName: 'ProfileOS Main Workspace.png',
-    imageSrc: '/assets/App Screenshots/ProfileOS Main Workspace.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/ProfileOS Main Workspace.png')
   },
   {
     id: 'profiles',
@@ -31,7 +32,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'profiles',
     imageFileName: 'Profiles Management.png',
-    imageSrc: '/assets/App Screenshots/Profiles Management.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/Profiles Management.png')
   },
   {
     id: 'qr',
@@ -47,7 +48,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'qr',
     imageFileName: 'Instant QR Presentation.png',
-    imageSrc: '/assets/App Screenshots/Instant QR Presentation.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/Instant QR Presentation.png')
   },
   {
     id: 'handle-details',
@@ -63,7 +64,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'handle-details',
     imageFileName: 'Handle Details & Action Sheet.png',
-    imageSrc: '/assets/App Screenshots/Handle Details & Action Sheet.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/Handle Details & Action Sheet.png')
   },
   {
     id: 'add-handle',
@@ -79,7 +80,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'add-handle',
     imageFileName: 'Add Social Handle.png',
-    imageSrc: '/assets/App Screenshots/Add Social Handle.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/Add Social Handle.png')
   },
   {
     id: 'share-all',
@@ -95,7 +96,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'share-all',
     imageFileName: 'Share All Handles.png',
-    imageSrc: '/assets/App Screenshots/Share All Handles.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/Share All Handles.png')
   },
   {
     id: 'reorder',
@@ -110,7 +111,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'reorder',
     imageFileName: 'Reordering Mode.png',
-    imageSrc: '/assets/App Screenshots/Reordering Mode.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/Reordering Mode.png')
   },
   {
     id: 'settings',
@@ -126,7 +127,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'settings',
     imageFileName: 'Personalize Workspace.png',
-    imageSrc: '/assets/App Screenshots/Personalize Workspace.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/Personalize Workspace.png')
   },
   {
     id: 'edit-profile',
@@ -142,7 +143,7 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'edit-profile',
     imageFileName: 'Edit Profile Identity.png',
-    imageSrc: '/assets/App Screenshots/Edit Profile Identity.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/Edit Profile Identity.png')
   },
   {
     id: 'select-platform',
@@ -158,6 +159,6 @@ export const SCREENSHOTS_CATALOG: ScreenshotFeature[] = [
     ],
     screenKey: 'select-platform',
     imageFileName: 'Select Platform Catalogue.png',
-    imageSrc: '/assets/App Screenshots/Select Platform Catalogue.png'
+    imageSrc: getAssetUrl('assets/App Screenshots/Select Platform Catalogue.png')
   }
 ];

@@ -66,6 +66,29 @@ export function getTabFromUrl(): PageTab {
 }
 
 /**
+ * Safely resolves any static asset path against the application base URL
+ * (e.g. '/ProfileOS/assets/...' on GitHub Pages, or '/assets/...' on localhost)
+ */
+export function getAssetUrl(relativePath: string): string {
+  if (!relativePath) return '';
+  // Return early for external URLs or data URLs
+  if (
+    relativePath.startsWith('http://') ||
+    relativePath.startsWith('https://') ||
+    relativePath.startsWith('data:') ||
+    relativePath.startsWith('blob:')
+  ) {
+    return relativePath;
+  }
+
+  const clean = relativePath.replace(/^\/+/, '');
+  const basePath = typeof window !== 'undefined' ? getBaseUrlPath().replace(/\/+$/, '') : '';
+
+  const resolved = basePath ? `${basePath}/${clean}` : `/${clean}`;
+  return encodeURI(resolved);
+}
+
+/**
  * Updates the browser URL to clean path without '#' symbol
  * E.g.
  * - home -> https://username.github.io/ProfileOS/

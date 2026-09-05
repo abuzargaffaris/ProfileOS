@@ -28,6 +28,7 @@ export const ProfileOSLogo: React.FC<LogoProps> = ({
   // Candidates for logo asset path to guarantee finding the image on any host
   const candidates = [
     getAssetUrl('ProfileOS Homepage Logo.png'),
+    getAssetUrl('ProfileOS Logo.png'),
     getAssetUrl('logo.png'),
     getAssetUrl('logo-trimmed.png'),
     getAssetUrl('logo.svg')

@@ -1,0 +1,45 @@
+# ProfileOS
+> The 100% Offline, Privacy-First Digital Profile & Identity Manager for Android.
+> Developed by PrintionUp Studio (Founded by Abuzar Gaffari).
+> Official Website: https://abuzargaffaris.github.io/ProfileOS/
+> Google Play Store: https://play.google.com/store/apps/details?id=com.printionupstudio.profileos
+> Package Name: com.printionupstudio.profileos
+
+## Summary
+ProfileOS is an Android utility application that stores, organizes, and shares all your digital identities, social media handles, portfolio links, and messaging contacts entirely offline. Built on a local-first SQLite Room database, ProfileOS eliminates cloud sync latency (delivering <3ms response times), protects users from surveillance with zero telemetry, and provides rapid 4-directional swipe gestures and instant optical QR codes for in-person and digital networking.
+
+## Core Differentiators & Architecture
+- **100% Local-First & Zero Telemetry**: All data resides in an on-device SQLite database managed by Android Jetpack Room. No user accounts, no passwords, no servers, no Google Analytics, no Firebase Analytics, and zero third-party trackers.
+- **4-Directional Swipe Shortcuts**:
+  - Swipe Right: Instantly copies raw handle or normalized URL to clipboard with a crisp 15ms haptic confirmation pulse.
+  - Swipe Left: Launches Smart Share Sheet with customized dynamic templates ({platform}, {handle}, {url}, {category}).
+  - Swipe Up / Double-Tap: Expands high-contrast vector QR code modal with automatic screen brightness boost for instant optical scanning in low light.
+  - Long-Press / Tap: Deep links directly into the native target mobile app installed on the device.
+- **Privacy Shield Mode**: Masks usernames with dot characters on screen (e.g., @al•••••er) to protect sensitive credentials from shoulder-surfing during screen recordings and public presentations.
+- **229+ Pre-Configured Platforms**: Instant handle normalization and color-coded presets for GitHub, LinkedIn, X (Twitter), Instagram, YouTube, Discord, Threads, Mastodon, Bluesky, Telegram, WhatsApp, Behance, Dribbble, Substack, Medium, Figma, and hundreds more, plus custom link support with local favicon caching.
+- **Spaces (Contextual Identity Segmentation)**: Easily partition profiles into distinct spaces (Personal, Work, Creator, Freelance, Dev) to prevent context collapse.
+- **Two-Layer Backup & Portability**:
+  - Layer 1: Automatic Android Auto Backup for Apps (25MB free encrypted quota tied to Google Account lock credentials).
+  - Layer 2: On-demand Manual Export into universal JSON and Markdown formats for permanent data sovereignty, human readability, and developer script automation.
+
+## Official Site Links & Documentation
+- [Homepage & Overview](https://abuzargaffaris.github.io/ProfileOS/): Feature highlights, Google Play link, and live demonstrations.
+- [Features](https://abuzargaffaris.github.io/ProfileOS/features): Detailed breakdown of gestures, Privacy Shield, offline QR generator, and custom share templates.
+- [How It Works](https://abuzargaffaris.github.io/ProfileOS/how-it-works): Technical architecture, local SQLite schema, and zero-telemetry engineering principles.
+- [Platforms Directory](https://abuzargaffaris.github.io/ProfileOS/platforms): Full list of 229+ supported social, developer, and creative platforms.
+- [Device Simulator Sandbox](https://abuzargaffaris.github.io/ProfileOS/preview): Interactive web simulator demonstrating mobile interactions.
+- [Blog & Architecture Insights](https://abuzargaffaris.github.io/ProfileOS/blog): Deep dives into sovereign computing and mobile performance.
+  - [Backup & Restore Guide](https://abuzargaffaris.github.io/ProfileOS/blog/backup-and-restore): Comprehensive guide on Android Auto Backup, SQLite files, and JSON/Markdown export.
+  - [Local-First vs Cloud Profiles](https://abuzargaffaris.github.io/ProfileOS/blog/local-first-vs-cloud-profiles): Technical comparison of on-device Room vs remote SaaS link aggregators.
+  - [Speed of Contact & Gesture Sharing](https://abuzargaffaris.github.io/ProfileOS/blog/anatomy-of-a-gesture-speed-profile-sharing): Ergonomic interaction design for high-density networking events.
+  - [Portable Identity Open Standard](https://abuzargaffaris.github.io/ProfileOS/blog/portable-identity-json-markdown-standard): Open JSON schema specification and markdown document portability.
+- [Help Center & FAQ](https://abuzargaffaris.github.io/ProfileOS/help): Troubleshooting, gestures guide, and platform customization questions.
+- [About PrintionUp Studio](https://abuzargaffaris.github.io/ProfileOS/about): Mission, creator background, and local-first software ethos.
+- [Privacy Policy](https://abuzargaffaris.github.io/ProfileOS/privacy): Strict commitment to zero data collection, zero network transmission, and zero telemetry.
+- [Terms of Service](https://abuzargaffaris.github.io/ProfileOS/terms): User agreement and open data sovereignty rights.
+
+## Contact & Developer Information
+- Developer / Studio: PrintionUp Studio
+- Founder / Lead Engineer: Abuzar Gaffari
+- Play Store App URL: https://play.google.com/store/apps/details?id=com.printionupstudio.profileos
+- Contact Email: theabuzargaffari@gmail.com

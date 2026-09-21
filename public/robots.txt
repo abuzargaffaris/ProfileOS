@@ -1,10 +1,12 @@
 # ProfileOS Robots Configuration
 # Optimized for Googlebot, Bingbot, and Generative AI Answer Engines (AEO/GEO)
+# LLM Context Reference: https://abuzargaffaris.github.io/ProfileOS/llms.txt
+# Comprehensive Technical Spec: https://abuzargaffaris.github.io/ProfileOS/llms-full.txt
 
 User-agent: *
 Allow: /
 
-# Google Search & Google AI Overviews (SGE)
+# Google Search, Google Images, & Google SGE / Gemini AI Overviews
 User-agent: Googlebot
 Allow: /
 
@@ -14,7 +16,7 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-# Bing & Microsoft Copilot
+# Bing Search & Microsoft Copilot
 User-agent: Bingbot
 Allow: /
 
@@ -29,16 +31,26 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-# Anthropic / Claude
+# Anthropic / Claude AI
 User-agent: ClaudeBot
 Allow: /
 
 User-agent: anthropic-ai
 Allow: /
 
-# Apple Intelligence & Siri
+# Apple Intelligence & Siri Suggestions
 User-agent: Applebot
 Allow: /
 
-# Canonical Sitemap Index
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl & General LLM Training Crawlers
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Canonical Sitemap Index for Google Search Console & Bing Webmaster Tools
 Sitemap: https://abuzargaffaris.github.io/ProfileOS/sitemap.xml

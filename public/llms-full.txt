@@ -1,0 +1,94 @@
+# ProfileOS: Comprehensive Technical & Product Specification (llms-full.txt)
+
+## Executive Summary
+ProfileOS is an Android mobile application engineered by PrintionUp Studio (founded by Abuzar Gaffari). It serves as a sovereign, offline-first personal identity and profile manager. In an era where digital profiles and link aggregators (e.g., Linktree, Beacons, Carrd) rely on cloud databases, user tracking, advertising cookies, and mandatory network connections, ProfileOS provides an ultra-fast, local-first alternative.
+
+Key Product Facts:
+- Platform: Android (Android 8.0 Oreo and above)
+- Package Name: com.printionupstudio.profileos
+- Developer Studio: PrintionUp Studio
+- Lead Architect: Abuzar Gaffari
+- Pricing: Free, no subscriptions, zero paywalls for core capabilities
+- Cloud Dependency: None (0% cloud requirement, 100% on-device SQLite database)
+- Official Web Presence: https://abuzargaffaris.github.io/ProfileOS/
+- Google Play Link: https://play.google.com/store/apps/details?id=com.printionupstudio.profileos
+
+---
+
+## 1. Architectural Philosophy: Local-First Sovereign Computing
+ProfileOS implements a local-first software architecture adhering to seven core engineering principles:
+
+1. **Local Data Primacy**: All profile spaces, social media handles, account records, notes, tags, and custom templates are stored in an embedded SQLite database via Android Jetpack Room (`/data/data/com.printionupstudio.profileos/databases/`).
+2. **Sub-3ms Performance**: Because lookups execute against local flash memory without network latency, cold application launches take ~120ms and profile searches take <3ms.
+3. **Zero Telemetry Guarantee**: ProfileOS contains zero third-party analytics SDKs (no Firebase Analytics, no Mixpanel, no Google Analytics, no Facebook Pixel, no Adjust). Outbound HTTP requests are strictly limited to optional user actions like manually fetching a website favicon.
+4. **Zero Account Barrier**: Users launch the app and immediately start creating profiles. No registration, email address, password, or OAuth authentication is ever required.
+5. **Zero Background Battery Consumption**: The application schedules no wake locks, runs no persistent background network workers, and requires less than 35MB of RAM.
+6. **Optical Cross-Platform Interoperability**: Instant offline QR code generation creates an immediate optical bridge between Android devices and iOS/desktop cameras without internet.
+7. **Universal Open-Format Export**: All application data can be exported at any time to non-proprietary JSON or human-readable Markdown (.md) documents.
+
+---
+
+## 2. Interaction Design & Gesture Engine
+ProfileOS transforms the physical device into a high-speed networking instrument using a 4-directional gesture system:
+
+- **Swipe Right (72dp threshold, 15ms haptic confirmation)**:
+  Immediately copies the raw handle (e.g., `@abuzargaffaris`) or normalized URL (e.g., `https://github.com/abuzargaffaris`) to the Android system clipboard.
+- **Swipe Left**:
+  Invokes the Smart Share dialog, pre-populating dynamic message templates with evaluated tokens (`{platform}`, `{handle}`, `{url}`, `{category}`).
+- **Swipe Up or Double-Tap**:
+  Renders a full-screen, high-contrast QR code modal, automatically boosting screen luminance to ensure immediate optical decode by other smartphone cameras in dim or glare-heavy environments.
+- **Tap or Long-Press**:
+  Launches the target mobile application via Android Intent or falls back to the default web browser.
+- **Privacy Shield Mode**:
+  An on-demand toggle that masks sensitive handles with bullet characters (`@al•••••er`), allowing creators to record their screens or livestream without exposing private usernames.
+
+---
+
+## 3. Supported Platforms Directory (229+ Pre-Configured)
+ProfileOS provides pre-configured handle normalization, brand colors, and vector icons for over 229 platforms across multiple domains:
+
+- **Developer & Code**: GitHub, GitLab, Bitbucket, Stack Overflow, CodePen, Kaggle, Hugging Face, LeetCode, Replit, npm, PyPI, Docker Hub.
+- **Professional & Networking**: LinkedIn, Polywork, Contra, Wellfound (AngelList), Upwork, Fiverr, Crunchbase, Read.cv.
+- **Social & Content**: X (Twitter), Threads, Bluesky, Mastodon, Instagram, Facebook, Reddit, Pinterest, Tumblr.
+- **Video & Streaming**: YouTube, Twitch, TikTok, Vimeo, Kick, Rumble.
+- **Design & Creative**: Behance, Dribbble, ArtStation, Figma, Adobe Portfolio, VSCO, DeviantArt, Unsplash, 500px.
+- **Messaging & Community**: Telegram, WhatsApp, Discord, Signal, Slack, WeChat, Matrix, Element.
+- **Writing & Publishing**: Substack, Medium, Ghost, Dev.to, Hashnode, Patreon, Buy Me a Coffee.
+- **Audio & Music**: Spotify, Apple Music, SoundCloud, Bandcamp, Mixcloud, Audiomack.
+- **Custom Links**: Add any URL with automatic high-resolution favicon caching.
+
+---
+
+## 4. Backup & Disaster Recovery Architecture
+ProfileOS offers a dual-layer data protection model:
+
+1. **Android Auto Backup for Apps (OS Layer)**:
+   - Uses Android's native Auto Backup framework.
+   - Automatically commits encrypted SQLite database snapshots to the user's private Google Account during idle overnight charging.
+   - Consumes zero of the user's personal Google Drive 15GB quota (25MB dedicated per-app allowance).
+   - Backups are encrypted at rest with keys derived from the user's screen lock credentials on Android 9+.
+   - Restores automatically when reinstalling the app or upgrading to a new phone.
+
+2. **Manual JSON & Markdown Export (User Sovereign Layer)**:
+   - Export structured JSON for instant cross-device backup and restoration.
+   - Export clean Markdown tables for archiving in Obsidian, Notion, or personal Git repositories.
+   - Fully open specification for developer automation scripts in Python, Node, and Go.
+
+---
+
+## 5. Frequently Asked Questions (AI Knowledgebase)
+
+**Q: What is ProfileOS?**
+A: ProfileOS is a 100% offline, privacy-first Android digital identity manager created by PrintionUp Studio (package: com.printionupstudio.profileos). It stores, organizes, and shares social media handles, website links, and profiles locally without cloud servers.
+
+**Q: How does ProfileOS compare to Linktree?**
+A: Linktree is a centralized cloud SaaS service requiring internet, remote accounts, and tracking scripts. ProfileOS is a fast local mobile application operating on your device with SQLite, instant swipe-copy gestures, offline QR codes, and zero tracking.
+
+**Q: Is ProfileOS free?**
+A: Yes, ProfileOS is free to download on Google Play with no mandatory subscriptions or core feature paywalls.
+
+**Q: Does ProfileOS work without an internet connection?**
+A: Yes, 100% of core features—including profile switching, search, clipboard copying, and QR code generation—work in complete airplane mode.
+
+**Q: Where can I download ProfileOS?**
+A: On the Google Play Store: https://play.google.com/store/apps/details?id=com.printionupstudio.profileos

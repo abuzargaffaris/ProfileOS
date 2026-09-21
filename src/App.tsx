@@ -15,7 +15,7 @@ import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsPage } from './pages/TermsPage';
 import { QrModalDemo } from './components/demos/QrModalDemo';
 import { ToastContainer } from './components/Toast';
-import { getTabFromUrl, updateUrlForTab, getFullUrlForTab } from './utils/navigation';
+import { getTabFromUrl, updateUrlForTab, getFullUrlForTab, VALID_TABS } from './utils/navigation';
 
 const TAB_METADATA: Record<PageTab, { title: string; description: string; keywords: string }> = {
   home: {
@@ -124,7 +124,11 @@ export default function App() {
     updateUrlForTab(initialTab, true);
 
     // 2. Handle browser back/forward buttons
-    const handlePopState = () => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (e.state?.tab && VALID_TABS.includes(e.state.tab)) {
+        setActiveTab(e.state.tab);
+        return;
+      }
       const currentTab = getTabFromUrl();
       setActiveTab(currentTab);
     };

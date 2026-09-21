@@ -39,7 +39,20 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onNotify, initia
 
   // Listen to popstate for back/forward browser navigation
   useEffect(() => {
-    const handlePopState = () => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (e.state && typeof e.state.slug !== 'undefined') {
+        setSelectedSlug(e.state.slug);
+        if (e.state.slug) {
+          const post = BLOG_POSTS.find(p => p.slug === e.state.slug);
+          if (post) {
+            document.title = `${post.title} — ProfileOS Blog`;
+            return;
+          }
+        }
+        document.title = 'ProfileOS Blog — Architecture, Privacy & Engineering Insights';
+        return;
+      }
+
       const slug = getBlogSlugFromUrl();
       setSelectedSlug(slug);
       if (slug) {

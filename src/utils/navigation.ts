@@ -108,6 +108,15 @@ export function getBlogSlugFromUrl(): string | null {
 export function getTabFromUrl(): PageTab {
   if (typeof window === 'undefined') return 'home';
 
+  // 0. Check history state if set by previous navigation
+  try {
+    if (window.history?.state?.tab && VALID_TABS.includes(window.history.state.tab)) {
+      return window.history.state.tab;
+    }
+  } catch {
+    // Ignore
+  }
+
   // 1. Check if redirected from GitHub Pages 404.html (e.g. ?p=/features or ?tab=features)
   try {
     const urlParams = new URLSearchParams(window.location.search);
@@ -122,16 +131,16 @@ export function getTabFromUrl(): PageTab {
     // Ignore URL parse errors
   }
 
-  // 2. Check path segments (e.g. /ProfileOS/features -> segments: ['ProfileOS', 'features'])
+  // 2. Check path segments for any valid tab (e.g. /ProfileOS/blog/backup-and-restore or /features)
   const segments = window.location.pathname.split('/').filter(Boolean);
-  if (segments.length > 0) {
-    const last = segments[segments.length - 1].toLowerCase();
-    if (VALID_TABS.includes(last as PageTab)) {
-      return last as PageTab;
+  for (let i = segments.length - 1; i >= 0; i--) {
+    const seg = segments[i].toLowerCase();
+    if (VALID_TABS.includes(seg as PageTab)) {
+      return seg as PageTab;
     }
   }
 
-  // 3. Fallback for legacy bookmarks containing hash (e.g. #features)
+  // 3. Fallback for legacy bookmarks containing hash (e.g. #features or #blog)
   if (window.location.hash) {
     const cleanHash = window.location.hash.replace(/^#\/?/, '').split('/')[0].toLowerCase();
     if (VALID_TABS.includes(cleanHash as PageTab)) {

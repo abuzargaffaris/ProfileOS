@@ -1,177 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-
-  <!-- Core Landing Page / Lead Showcase -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>ProfileOS — All Your Profiles. One Place.</image:title>
-      <image:caption>The 100% offline, privacy-first digital profile and identity manager for Android.</image:caption>
-    </image:image>
   </url>
-
-  <!-- Interactive Features & Gesture System -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/features</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>ProfileOS Features — Gestures, QR, Spaces &amp; Privacy Shield</image:title>
-      <image:caption>Bidirectional swipe-copy gestures, on-demand QR generator, and Privacy Shield mode.</image:caption>
-    </image:image>
   </url>
-
-  <!-- How It Works & Architecture -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/how-it-works</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>ProfileOS Architecture — Local-First SQLite Room &amp; Jetpack Engine</image:title>
-      <image:caption>How ProfileOS delivers 0ms response latency with zero external servers and zero battery drain.</image:caption>
-    </image:image>
   </url>
-
-  <!-- 229+ Supported Social & Developer Platforms Directory -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/platforms</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>229+ Supported Platforms Directory — ProfileOS</image:title>
-      <image:caption>Explore 229+ pre-configured social media, coding, portfolio, and messaging platforms with custom icon presets.</image:caption>
-    </image:image>
   </url>
-
-  <!-- Interactive Device Simulator / Sandbox Preview -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/preview</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>Interactive Android Device Simulator — ProfileOS</image:title>
-      <image:caption>Test real swipe gestures, QR popups, and space switching in an interactive mobile mockup.</image:caption>
-    </image:image>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Official Engineering, Privacy & Architecture Blog Hub -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/blog</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>ProfileOS Blog — Engineering, Privacy &amp; Data Sovereignty</image:title>
-      <image:caption>Long-form guides on local-first computing, Android Auto Backup, optical QR generation, and portable identity standards.</image:caption>
-    </image:image>
   </url>
-
-  <!-- Blog Article 1: Backup & Restore Guide -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/blog/backup-and-restore</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>ProfileOS Backup &amp; Restore: How Your Data Is Protected</image:title>
-      <image:caption>Understanding local-first architecture, Android Auto Backup for Apps (25MB quota), and portable manual exports.</image:caption>
-    </image:image>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Blog Article 2: Local-First Architecture vs Cloud -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/blog/local-first-vs-cloud-profiles</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>Why We Chose Local-First: The Architecture of Zero-Telemetry Profiles</image:title>
-      <image:caption>How SQLite Room and on-device indexing outperform centralized cloud identity databases in speed, security, and battery efficiency.</image:caption>
-    </image:image>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Blog Article 3: Gesture Shortcuts & Instant QR Switching -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/blog/anatomy-of-a-gesture-speed-profile-sharing</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>Speed of Contact: Mastering Gesture Shortcuts &amp; Instant QR Switching</image:title>
-      <image:caption>Designing 4-directional touch interactions for high-stakes networking environments with 15ms haptic confirmation.</image:caption>
-    </image:image>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Blog Article 4: The Open Standard for Portable Profiles (JSON & Markdown) -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/blog/portable-identity-json-markdown-standard</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>The Open Standard for Portable Social Profiles: JSON &amp; Markdown</image:title>
-      <image:caption>Why proprietary vendor lock-in is dangerous for digital creators, and how ProfileOS exports keep your data permanently open.</image:caption>
-    </image:image>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Help Center & FAQ Knowledgebase -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/help</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>ProfileOS Help Center &amp; Frequently Asked Questions</image:title>
-      <image:caption>Find instant answers to common questions about gestures, backups, privacy shield, custom platforms, and Android compatibility.</image:caption>
-    </image:image>
+    <priority>0.8</priority>
   </url>
-
-  <!-- About PrintionUp Studio & Mission -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/about</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://abuzargaffaris.github.io/ProfileOS/og-image.png</image:loc>
-      <image:title>About PrintionUp Studio — The Team Behind ProfileOS</image:title>
-      <image:caption>Our mission to build sovereign, local-first mobile software that honors user privacy and zero surveillance.</image:caption>
-    </image:image>
+    <priority>0.7</priority>
   </url>
-
-  <!-- Privacy Policy & Zero Telemetry Guarantee -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/privacy</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Terms of Service -->
   <url>
     <loc>https://abuzargaffaris.github.io/ProfileOS/terms</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
 </urlset>

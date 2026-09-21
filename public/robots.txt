@@ -54,3 +54,4 @@ Allow: /
 
 # Canonical Sitemap Index for Google Search Console & Bing Webmaster Tools
 Sitemap: https://abuzargaffaris.github.io/ProfileOS/sitemap.xml
+Sitemap: https://abuzargaffaris.github.io/ProfileOS/sitemap.txt

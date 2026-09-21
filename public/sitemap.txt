@@ -1,0 +1,14 @@
+https://abuzargaffaris.github.io/ProfileOS/
+https://abuzargaffaris.github.io/ProfileOS/features
+https://abuzargaffaris.github.io/ProfileOS/how-it-works
+https://abuzargaffaris.github.io/ProfileOS/platforms
+https://abuzargaffaris.github.io/ProfileOS/preview
+https://abuzargaffaris.github.io/ProfileOS/blog
+https://abuzargaffaris.github.io/ProfileOS/blog/backup-and-restore
+https://abuzargaffaris.github.io/ProfileOS/blog/local-first-vs-cloud-profiles
+https://abuzargaffaris.github.io/ProfileOS/blog/anatomy-of-a-gesture-speed-profile-sharing
+https://abuzargaffaris.github.io/ProfileOS/blog/portable-identity-json-markdown-standard
+https://abuzargaffaris.github.io/ProfileOS/help
+https://abuzargaffaris.github.io/ProfileOS/about
+https://abuzargaffaris.github.io/ProfileOS/privacy
+https://abuzargaffaris.github.io/ProfileOS/terms

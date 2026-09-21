@@ -6,8 +6,23 @@ export type PageTab =
   | 'platforms'
   | 'help'
   | 'about'
+  | 'blog'
   | 'privacy'
   | 'terms';
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  subtitle: string;
+  author: string;
+  authorRole: string;
+  date: string;
+  readTime: string;
+  category: string;
+  tags: string[];
+  excerpt: string;
+  featured?: boolean;
+}
 
 export interface SocialPlatform {
   id: string;

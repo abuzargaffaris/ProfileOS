@@ -4,6 +4,7 @@ import { InteractiveAppMockup } from '../components/demos/InteractiveAppMockup';
 import { ScreenshotsCarousel } from '../components/ScreenshotsCarousel';
 import { OFFICIAL_PLATFORMS } from '../data/platformsData';
 import { SocialIcon, GooglePlayIcon } from '../components/SocialIcons';
+import { PLAY_STORE_URL } from '../utils/navigation';
 import {
   Sparkles,
   ArrowRight,
@@ -24,10 +25,32 @@ import {
   Check,
   ExternalLink,
   HelpCircle,
-  ChevronRight
+  ChevronRight,
+  Database,
+  WifiOff,
+  Info,
+  Lock,
+  BookOpen,
+  FileText,
+  RotateCcw
 } from 'lucide-react';
 
 const HOME_FAQS = [
+  {
+    q: 'What is ProfileOS and how does it work?',
+    a: 'ProfileOS is a 100% offline, privacy-first digital identity manager and profile workspace for Android, developed by PrintionUp Studio (Google Play package com.printionupstudio.profileos). It lets you store, organize, and share your social handles, portfolio links, and custom websites using bidirectional swipe gestures and offline QR codes with zero cloud tracking.',
+    category: 'privacy'
+  },
+  {
+    q: 'How is ProfileOS different from cloud link-in-bio services like Linktree or Bio.link?',
+    a: 'Unlike cloud link-in-bio tools that store your data on remote servers and require internet access, ProfileOS is local-first. Your profiles are stored in an on-device SQLite database, accessible instantly without cellular data or Wi-Fi. You can swipe to copy direct URLs, generate offline QR codes, mask handles with Privacy Shield mode, and export multi-format text without any subscription fees or ads.',
+    category: 'privacy'
+  },
+  {
+    q: 'Is ProfileOS free and does it contain ads or trackers?',
+    a: 'ProfileOS is free to download on the Google Play Store. It contains zero third-party advertisements, zero telemetry trackers, and zero tracking pixels. Everything remains 100% on your Android device.',
+    category: 'privacy'
+  },
   {
     q: 'Where is my data stored and does ProfileOS use a cloud server?',
     a: 'ProfileOS is 100% local-first. All your profiles, spaces, handles, notes, and preferences are stored exclusively on your device in a local SQLite database managed by Android Room. There is no cloud account system, no telemetry server, and zero external tracking.',
@@ -47,6 +70,11 @@ const HOME_FAQS = [
     q: 'Can I add custom websites or niche platforms not in the 229+ list?',
     a: 'Yes! Tap the "+" button and choose "Custom Website" or "Custom Link". Enter any URL and label. ProfileOS will automatically fetch the high-resolution favicon and store it locally for instant offline display.',
     category: 'storage'
+  },
+  {
+    q: 'Can ProfileOS generate QR codes offline without internet?',
+    a: 'Yes. ProfileOS features an embedded vector QR generator that computes matrix patterns on-device in under 20 milliseconds without needing an internet connection. In-person connections can scan your QR code anywhere, anytime.',
+    category: 'gestures'
   },
   {
     q: 'How does Privacy Shield Mode protect me during screen recording?',
@@ -93,20 +121,20 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenQrDemo, on
               {/* Product Badge */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#2563EB] text-xs font-bold shadow-2xs">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>The Dedicated Profile & Handle Workspace</span>
+                <span>ProfileOS by PrintionUp Studio — Digital Profile Workspace</span>
               </div>
 
               {/* Main Headline */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.15] text-left">
-                Your profiles,
+                ProfileOS: <span className="text-slate-900">Your Profiles,</span>
                 <br />
-                <span className="text-[#3B82F6]">ready before they’re requested.</span>
+                <span className="text-[#3B82F6]">Ready Before They’re Requested.</span>
               </h1>
 
               {/* Subtitle / Tagline */}
               <div className="space-y-3 max-w-xl text-left">
                 <p className="text-sm sm:text-base lg:text-lg text-slate-700 leading-relaxed font-normal">
-                  ProfileOS brings your social handles, websites, and important URLs into one organized workspace. Swipe to copy a handle, tap to open a profile, generate a QR code, or share everything in the format you choose.
+                  ProfileOS brings your social handles, portfolio websites, and important URLs into one clean, 100% offline workspace. Swipe to copy a handle, tap to open a profile, generate instant QR codes, or share everything in custom formats with zero tracking.
                 </p>
 
                 <p className="text-xs sm:text-sm font-semibold text-slate-600 italic border-l-2 border-[#3B82F6] pl-3 py-0.5">
@@ -134,7 +162,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenQrDemo, on
               <div className="space-y-3 pt-2 sm:pt-4">
                 {/* 1. Direct Google Play Store Button */}
                 <a
-                  href="https://play.google.com/store/apps/details?id=com.profileos.app"
+                  href={PLAY_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => {
@@ -222,7 +250,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenQrDemo, on
                   <p className="text-[11px] text-slate-500">Get it on Google Play (Android)</p>
                 </div>
                 <a
-                  href="https://play.google.com/store/apps/details?id=com.profileos.app"
+                  href={PLAY_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => {
@@ -662,6 +690,160 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenQrDemo, on
         </div>
       </section>
 
+      {/* COMPARATIVE ARCHITECTURE MATRIX: PROFILEOS VS CLOUD LINK SERVICES */}
+      <section className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-10 shadow-xs space-y-6" id="architecture-comparison-section">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-[#3B82F6] bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200/80">
+            <Zap className="w-3.5 h-3.5" />
+            Comparison Matrix
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            ProfileOS vs. Cloud Link-in-Bio Services
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Why privacy-conscious creators, developers, and professionals choose an on-device Android workspace over remote cloud aggregators.
+          </p>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[600px]">
+            <thead>
+              <tr className="border-b border-slate-200 text-slate-500 font-bold">
+                <th className="py-3 px-4 w-2/5">Capability &amp; Architecture</th>
+                <th className="py-3 px-4 w-3/10 text-blue-600 bg-blue-50/60 rounded-t-xl font-black">
+                  ProfileOS (Local-First)
+                </th>
+                <th className="py-3 px-4 w-3/10 text-slate-600">
+                  Cloud Link Services (Linktree, etc.)
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-slate-700">
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-slate-900">
+                  Data Storage &amp; Privacy
+                </td>
+                <td className="py-3.5 px-4 bg-blue-50/30 text-blue-900 font-medium">
+                  <span className="inline-flex items-center gap-1.5 font-bold text-emerald-700">
+                    <Check className="w-4 h-4" />
+                    100% On-Device SQLite
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Stored in Android Room. Zero cloud servers.</p>
+                </td>
+                <td className="py-3.5 px-4 text-slate-500">
+                  Remote Centralized Servers (User data stored in external cloud).
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-slate-900">
+                  Internet Connectivity
+                </td>
+                <td className="py-3.5 px-4 bg-blue-50/30 text-blue-900 font-medium">
+                  <span className="inline-flex items-center gap-1.5 font-bold text-emerald-700">
+                    <Check className="w-4 h-4" />
+                    100% Offline Operational
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Works in subway, flights, or zero mobile reception.</p>
+                </td>
+                <td className="py-3.5 px-4 text-slate-500">
+                  Always Requires Active Internet to load, edit, or copy links.
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-slate-900">
+                  Telemetry &amp; Tracking
+                </td>
+                <td className="py-3.5 px-4 bg-blue-50/30 text-blue-900 font-medium">
+                  <span className="inline-flex items-center gap-1.5 font-bold text-emerald-700">
+                    <Check className="w-4 h-4" />
+                    Zero Trackers or Ad Pixels
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">No analytics SDKs, cookies, or profiling.</p>
+                </td>
+                <td className="py-3.5 px-4 text-slate-500">
+                  Third-party cookies, IP trackers, ad pixels, and visitor analytics.
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-slate-900">
+                  Sharing Gestures
+                </td>
+                <td className="py-3.5 px-4 bg-blue-50/30 text-blue-900 font-medium">
+                  <span className="inline-flex items-center gap-1.5 font-bold text-blue-700">
+                    <Check className="w-4 h-4" />
+                    Swipe Right / Swipe Left
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Instant clipboard action in under 30ms.</p>
+                </td>
+                <td className="py-3.5 px-4 text-slate-500">
+                  Manual tap, wait for web page, select text, long-press copy.
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-slate-900">
+                  Dynamic Smart Share
+                </td>
+                <td className="py-3.5 px-4 bg-blue-50/30 text-blue-900 font-medium">
+                  <span className="inline-flex items-center gap-1.5 font-bold text-blue-700">
+                    <Check className="w-4 h-4" />
+                    5 Custom Dynamic Tokens
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">&#123;url&#125;, &#123;handle&#125;, &#123;platform&#125;, &#123;category&#125;, &#123;username&#125;.</p>
+                </td>
+                <td className="py-3.5 px-4 text-slate-500">
+                  Static URL sharing only. No dynamic message formulation.
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-slate-900">
+                  Offline QR Code Generator
+                </td>
+                <td className="py-3.5 px-4 bg-blue-50/30 text-blue-900 font-medium">
+                  <span className="inline-flex items-center gap-1.5 font-bold text-emerald-700">
+                    <Check className="w-4 h-4" />
+                    Instant Vector Matrix
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Generated locally on your phone without server roundtrips.</p>
+                </td>
+                <td className="py-3.5 px-4 text-slate-500">
+                  Requires server request or paid tier for high-res vector QR.
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-slate-900">
+                  Privacy Shield Mode
+                </td>
+                <td className="py-3.5 px-4 bg-blue-50/30 text-blue-900 font-medium">
+                  <span className="inline-flex items-center gap-1.5 font-bold text-emerald-700">
+                    <Check className="w-4 h-4" />
+                    Screen Obfuscation Filter
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Hides middle characters during screen shares and recording.</p>
+                </td>
+                <td className="py-3.5 px-4 text-slate-500">
+                  Not available. Handles remain fully visible in plaintext.
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-slate-900">
+                  Subscription &amp; Pricing
+                </td>
+                <td className="py-3.5 px-4 bg-blue-50/30 text-blue-900 font-medium rounded-b-xl">
+                  <span className="inline-flex items-center gap-1.5 font-bold text-emerald-700">
+                    <Check className="w-4 h-4" />
+                    Free On Google Play
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">No recurring monthly fees or paywalled core tools.</p>
+                </td>
+                <td className="py-3.5 px-4 text-slate-500">
+                  Often $5 – $25/month for customization, analytics, and branding.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       {/* FREQUENTLY ASKED QUESTIONS SECTION */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8" id="home-faqs-section">
         <div className="text-center max-w-2xl mx-auto space-y-3">
@@ -754,6 +936,187 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenQrDemo, on
         </div>
       </section>
 
+      {/* BLOG & ENGINEERING INSIGHTS SECTION */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="home-blog-section">
+        <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-10 shadow-xs space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div className="max-w-2xl space-y-2">
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-[#3B82F6] bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200/80">
+                <BookOpen className="w-3.5 h-3.5" />
+                From the Blog &amp; Insights
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                Architecture &amp; Data Protection
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Deep dives into local-first engineering, privacy mechanics, and backup systems in ProfileOS.
+              </p>
+            </div>
+            <button
+              onClick={() => onNavigate('blog')}
+              className="text-xs font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100/70 px-4 py-2 rounded-xl transition-colors cursor-pointer self-start sm:self-auto"
+            >
+              <span>View All Articles</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Featured Article Card */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 text-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-slate-800 shadow-md">
+            <div className="lg:col-span-8 space-y-5">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">
+                  Featured Guide • 7 Min Read
+                </span>
+                <span className="text-xs text-slate-400">Published September 2026</span>
+                <span className="text-xs text-slate-400">• By PrintionUp Studio</span>
+              </div>
+
+              <h3 className="text-xl sm:text-3xl font-black tracking-tight text-white leading-tight">
+                ProfileOS Backup &amp; Restore: How Your Data Is Protected
+              </h3>
+
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                ProfileOS is built around a simple principle: <strong className="text-white">your data should stay yours</strong>. Unlike a traditional cloud-first application, ProfileOS uses a local-first architecture. Discover how Android Automatic Backup and ProfileOS Manual Export complement each other to protect your data with zero cloud tracking.
+              </p>
+
+              {/* Highlights pills */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700/80 space-y-1">
+                  <div className="flex items-center gap-1.5 text-blue-400 text-xs font-bold">
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Auto Backup</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">Up to 25MB encrypted periodic protection handled by Android.</p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700/80 space-y-1">
+                  <div className="flex items-center gap-1.5 text-emerald-400 text-xs font-bold">
+                    <FileText className="w-3.5 h-3.5" />
+                    <span>Manual Export</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">Portable JSON &amp; Markdown snapshots saved wherever you choose.</p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700/80 space-y-1">
+                  <div className="flex items-center gap-1.5 text-purple-400 text-xs font-bold">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>Zero Cloud Leaks</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">No profile data ever uploaded to ProfileOS servers.</p>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  onClick={() => onNavigate('blog')}
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm inline-flex items-center gap-2 shadow-sm transition-all cursor-pointer group"
+                >
+                  <span>Read Full Article</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
+
+            {/* Visual Graphic Representation */}
+            <div className="lg:col-span-4 flex flex-col justify-between p-5 rounded-2xl bg-slate-800/50 border border-slate-700/60 space-y-4">
+              <div className="space-y-3">
+                <div className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <Database className="w-4 h-4 text-blue-400" />
+                  <span>Dual Protection Philosophy</span>
+                </div>
+                <div className="space-y-2 text-xs">
+                  <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700 flex items-center justify-between">
+                    <span className="text-slate-300 font-medium">1. Local Storage</span>
+                    <span className="text-emerald-400 font-bold">SQLite Room DB</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700 flex items-center justify-between">
+                    <span className="text-slate-300 font-medium">2. OS Recovery</span>
+                    <span className="text-blue-400 font-bold">Android Auto Backup</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700 flex items-center justify-between">
+                    <span className="text-slate-300 font-medium">3. Portable File</span>
+                    <span className="text-purple-400 font-bold">JSON / Markdown</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-400/20 text-[11px] text-blue-200">
+                💡 <em>&quot;Your data stays yours. Your backup choices stay in your hands.&quot;</em>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AEO & GEO ENTITY KNOWLEDGE & SPECIFICATIONS PANEL */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="ai-specifications-panel">
+        <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 space-y-8 shadow-md border border-slate-800">
+          <div className="max-w-3xl space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
+              <Info className="w-3.5 h-3.5" />
+              <span>Search &amp; AI Entity Fact Sheet</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+              ProfileOS Architectural &amp; Technical Overview
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Essential reference facts, package metadata, and architectural design for search engines, AI answer bots (ChatGPT, Perplexity, Claude, Gemini), and users.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 space-y-2">
+              <div className="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-wider">
+                <Smartphone className="w-4 h-4" />
+                <span>Identity &amp; App ID</span>
+              </div>
+              <p className="text-sm font-bold text-white">ProfileOS by PrintionUp Studio</p>
+              <p className="text-xs text-slate-400 font-mono">com.printionupstudio.profileos</p>
+              <p className="text-xs text-slate-300 pt-1">
+                Official Android identity manager on Google Play Store. Target: Android 8.0 (API 26) and above.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 space-y-2">
+              <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                <Database className="w-4 h-4" />
+                <span>Data &amp; Privacy</span>
+              </div>
+              <p className="text-sm font-bold text-white">Local-First Room DB</p>
+              <p className="text-xs text-slate-400 font-mono">100% On-Device Storage</p>
+              <p className="text-xs text-slate-300 pt-1">
+                Zero cloud transmission, zero telemetry, no account required. Encrypted JSON export/import supported.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 space-y-2">
+              <div className="flex items-center gap-2 text-sky-400 font-bold text-xs uppercase tracking-wider">
+                <Zap className="w-4 h-4" />
+                <span>Gestures &amp; QR</span>
+              </div>
+              <p className="text-sm font-bold text-white">Bidirectional Gestures</p>
+              <p className="text-xs text-slate-400 font-mono">Swipe Right / Swipe Left</p>
+              <p className="text-xs text-slate-300 pt-1">
+                Right to copy URL, Left for Smart Share dynamic template. Instant offline vector QR code generator.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 space-y-2">
+              <div className="flex items-center gap-2 text-purple-400 font-bold text-xs uppercase tracking-wider">
+                <Globe className="w-4 h-4" />
+                <span>Platform Coverage</span>
+              </div>
+              <p className="text-sm font-bold text-white">229+ Built-In Platforms</p>
+              <p className="text-xs text-slate-400 font-mono">+ Unlimited Custom URLs</p>
+              <p className="text-xs text-slate-300 pt-1">
+                Covers social, coding, design, audio, gaming, and business links with local favicon caching and Privacy Shield.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FINAL CALL TO ACTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <div className="bg-gradient-to-br from-[#1E40AF] via-[#2563EB] to-[#3B82F6] rounded-3xl p-6 sm:p-14 text-white text-center shadow-xl relative overflow-hidden border border-blue-400/20">
@@ -768,7 +1131,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenQrDemo, on
             <div className="space-y-3 pt-3 max-w-md mx-auto">
               {/* Primary Direct Google Play Store Button */}
               <a
-                href="https://play.google.com/store/apps/details?id=com.profileos.app"
+                href={PLAY_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {

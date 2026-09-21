@@ -1,5 +1,9 @@
 import { PageTab } from '../types';
 
+export const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.printionupstudio.profileos';
+export const SITE_ORIGIN = 'https://abuzargaffaris.github.io';
+export const REPO_NAME = 'ProfileOS';
+
 export const VALID_TABS: PageTab[] = [
   'home',
   'features',
@@ -8,6 +12,7 @@ export const VALID_TABS: PageTab[] = [
   'platforms',
   'help',
   'about',
+  'blog',
   'privacy',
   'terms',
 ];
@@ -16,25 +21,97 @@ export const VALID_TABS: PageTab[] = [
  * Calculates the repository base URL path (e.g. '/ProfileOS' on GitHub Pages or '' on custom domains/localhost)
  */
 export function getBaseUrlPath(): string {
+  if (typeof window === 'undefined') return `/${REPO_NAME}`;
   const path = window.location.pathname;
   const segments = path.split('/').filter(Boolean);
 
-  // If the last segment is one of our app tabs, remove it to find the base prefix
-  if (segments.length > 0 && VALID_TABS.includes(segments[segments.length - 1] as PageTab)) {
-    segments.pop();
+  // If on *.github.io or path starts with repository name
+  if (
+    window.location.hostname.includes('github.io') ||
+    (segments.length > 0 && segments[0].toLowerCase() === REPO_NAME.toLowerCase())
+  ) {
+    return `/${REPO_NAME}`;
   }
 
-  return segments.length > 0 ? `/${segments.join('/')}` : '';
+  return '';
+}
+
+/**
+ * Generates the clean absolute or base-relative URL path for a given tab
+ * e.g.
+ * - home: '/ProfileOS/' on GitHub Pages, '/' on custom domain
+ * - features: '/ProfileOS/features' on GitHub Pages, '/features' on custom domain
+ */
+export function getUrlForTab(tab: PageTab, slug?: string): string {
+  const basePath = getBaseUrlPath();
+  if (tab === 'home') {
+    return basePath ? `${basePath}/` : '/';
+  }
+  if (tab === 'blog' && slug) {
+    return basePath ? `${basePath}/blog/${slug}` : `/blog/${slug}`;
+  }
+  return basePath ? `${basePath}/${tab}` : `/${tab}`;
+}
+
+/**
+ * Generates the canonical full HTTPS URL for a given tab (for SEO, Schema.org, OpenGraph)
+ * e.g. https://abuzargaffaris.github.io/ProfileOS/features
+ */
+export function getFullUrlForTab(tab: PageTab, slug?: string): string {
+  if (tab === 'home') {
+    return `${SITE_ORIGIN}/${REPO_NAME}/`;
+  }
+  if (tab === 'blog' && slug) {
+    return `${SITE_ORIGIN}/${REPO_NAME}/blog/${slug}`;
+  }
+  return `${SITE_ORIGIN}/${REPO_NAME}/${tab}`;
+}
+
+/**
+ * Extracts blog slug if current URL is /blog/:slug
+ */
+export function getBlogSlugFromUrl(): string | null {
+  if (typeof window === 'undefined') return null;
+
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectParam = urlParams.get('p') || urlParams.get('tab');
+    if (redirectParam) {
+      const parts = decodeURIComponent(redirectParam).replace(/^\/+/, '').split('/');
+      if (parts[0].toLowerCase() === 'blog' && parts[1]) {
+        return parts[1];
+      }
+    }
+  } catch {
+    // Ignore
+  }
+
+  const segments = window.location.pathname.split('/').filter(Boolean);
+  const blogIdx = segments.findIndex(s => s.toLowerCase() === 'blog');
+  if (blogIdx !== -1 && segments[blogIdx + 1]) {
+    return segments[blogIdx + 1];
+  }
+
+  if (window.location.hash) {
+    const hashParts = window.location.hash.replace(/^#\/?/, '').split('/');
+    if (hashParts[0].toLowerCase() === 'blog' && hashParts[1]) {
+      return hashParts[1];
+    }
+  }
+
+  return null;
 }
 
 /**
  * Extracts the active tab from current URL pathname, 404-redirect query, or legacy hash
  */
 export function getTabFromUrl(): PageTab {
-  // 1. Check if redirected from GitHub Pages 404.html (e.g. ?p=/features)
+  if (typeof window === 'undefined') return 'home';
+
+  // 1. Check if redirected from GitHub Pages 404.html (e.g. ?p=/features or ?tab=features)
   try {
     const urlParams = new URLSearchParams(window.location.search);
-    const redirectParam = urlParams.get('p');
+    const redirectParam = urlParams.get('p') || urlParams.get('tab');
     if (redirectParam) {
       const clean = decodeURIComponent(redirectParam).replace(/^\/+/, '').split('/')[0].toLowerCase();
       if (VALID_TABS.includes(clean as PageTab)) {
@@ -45,7 +122,7 @@ export function getTabFromUrl(): PageTab {
     // Ignore URL parse errors
   }
 
-  // 2. Check path segments
+  // 2. Check path segments (e.g. /ProfileOS/features -> segments: ['ProfileOS', 'features'])
   const segments = window.location.pathname.split('/').filter(Boolean);
   if (segments.length > 0) {
     const last = segments[segments.length - 1].toLowerCase();
@@ -110,15 +187,15 @@ export function getAssetUrl(relativePath: string): string {
  * - home -> https://username.github.io/ProfileOS/
  * - features -> https://username.github.io/ProfileOS/features
  */
-export function updateUrlForTab(tab: PageTab, replace = false): void {
-  const basePath = getBaseUrlPath();
-  const targetPath = tab === 'home' ? (basePath ? `${basePath}/` : '/') : `${basePath}/${tab}`;
+export function updateUrlForTab(tab: PageTab, replace = false, slug?: string): void {
+  const targetPath = getUrlForTab(tab, slug);
 
-  // Preserve non-internal search params, clean up '?p='
+  // Preserve non-internal search params, clean up '?p=' and '?tab='
   let searchStr = '';
   try {
     const params = new URLSearchParams(window.location.search);
     params.delete('p');
+    params.delete('tab');
     const remaining = params.toString();
     if (remaining) {
       searchStr = `?${remaining}`;
@@ -131,9 +208,9 @@ export function updateUrlForTab(tab: PageTab, replace = false): void {
 
   try {
     if (replace) {
-      window.history.replaceState({ tab }, '', finalUrl);
+      window.history.replaceState({ tab, slug }, '', finalUrl);
     } else {
-      window.history.pushState({ tab }, '', finalUrl);
+      window.history.pushState({ tab, slug }, '', finalUrl);
     }
   } catch {
     // Safe fallback if sandboxed iframe blocks history

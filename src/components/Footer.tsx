@@ -3,7 +3,8 @@ import { ProfileOSLogo } from './Logo';
 import { PageTab } from '../types';
 import { SocialIcon, GooglePlayIcon } from './SocialIcons';
 import { OFFICIAL_PLATFORMS } from '../data/platformsData';
-import { Shield, Sparkles, ExternalLink, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { PLAY_STORE_URL, getUrlForTab } from '../utils/navigation';
+import { Sparkles, ExternalLink, ArrowRight, ArrowUpRight } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (tab: PageTab) => void;
@@ -15,21 +16,29 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: PageTab) => {
+    if (!e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+      e.preventDefault();
+      handleNav(tab);
+    }
+  };
+
   return (
     <footer className="bg-white border-t border-slate-100 pt-12 pb-8 mt-12 sm:mt-16 text-slate-600">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-8 border-b border-slate-100">
           {/* Brand & Philosophy Column */}
           <div className="lg:col-span-2 space-y-4">
-            <button
-              onClick={() => handleNav('home')}
+            <a
+              href={getUrlForTab('home')}
+              onClick={(e) => handleLinkClick(e, 'home')}
               className="cursor-pointer text-left border-0 bg-transparent p-0 inline-flex items-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-xl"
               aria-label="ProfileOS Home"
               title="ProfileOS Home"
               id="footer-brand-logo-btn"
             >
-              <ProfileOSLogo size="lg" onClick={() => handleNav('home')} />
-            </button>
+              <ProfileOSLogo size="lg" />
+            </a>
             <p className="text-sm text-slate-500 max-w-sm leading-relaxed">
               <strong>All Your Profiles. One Place.</strong>
               <br />
@@ -44,7 +53,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
             <div className="pt-2">
               <a
-                href="https://play.google.com/store/apps/details?id=com.profileos.app"
+                href={PLAY_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950 hover:bg-black text-white text-xs font-bold shadow-2xs hover:shadow-xs transition-all duration-200 cursor-pointer group border border-slate-800"
@@ -68,44 +77,59 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h4>
             <ul className="space-y-2.5 text-xs font-medium">
               <li>
-                <button
-                  onClick={() => handleNav('home')}
+                <a
+                  href={getUrlForTab('home')}
+                  onClick={(e) => handleLinkClick(e, 'home')}
                   className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                 >
                   Home
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('features')}
+                <a
+                  href={getUrlForTab('features')}
+                  onClick={(e) => handleLinkClick(e, 'features')}
                   className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                 >
                   Core Features
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('how-it-works')}
+                <a
+                  href={getUrlForTab('how-it-works')}
+                  onClick={(e) => handleLinkClick(e, 'how-it-works')}
                   className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                 >
                   How It Works
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('preview')}
+                <a
+                  href={getUrlForTab('preview')}
+                  onClick={(e) => handleLinkClick(e, 'preview')}
                   className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                 >
                   App Preview
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('platforms')}
+                <a
+                  href={getUrlForTab('platforms')}
+                  onClick={(e) => handleLinkClick(e, 'platforms')}
                   className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                 >
                   Supported Platforms
-                </button>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={getUrlForTab('blog')}
+                  onClick={(e) => handleLinkClick(e, 'blog')}
+                  className="hover:text-[#3B82F6] transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                >
+                  <span>Blog &amp; Insights</span>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-600">New</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -117,36 +141,40 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h4>
             <ul className="space-y-2.5 text-xs font-medium">
               <li>
-                <button
-                  onClick={() => handleNav('about')}
+                <a
+                  href={getUrlForTab('about')}
+                  onClick={(e) => handleLinkClick(e, 'about')}
                   className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                 >
                   About ProfileOS
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('help')}
+                <a
+                  href={getUrlForTab('help')}
+                  onClick={(e) => handleLinkClick(e, 'help')}
                   className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                 >
                   Help Center
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('privacy')}
+                <a
+                  href={getUrlForTab('privacy')}
+                  onClick={(e) => handleLinkClick(e, 'privacy')}
                   className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                 >
                   Privacy Policy
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('terms')}
+                <a
+                  href={getUrlForTab('terms')}
+                  onClick={(e) => handleLinkClick(e, 'terms')}
                   className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                 >
                   Terms of Service
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -183,14 +211,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           <div className="text-center sm:text-right">
-            <button
-              onClick={() => handleNav('about')}
+            <a
+              href={getUrlForTab('about')}
+              onClick={(e) => handleLinkClick(e, 'about')}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-blue-50/80 text-slate-600 hover:text-[#3B82F6] border border-slate-200/80 hover:border-blue-200/80 text-xs font-semibold transition-all shadow-2xs hover:shadow-xs cursor-pointer group whitespace-nowrap"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#3B82F6] group-hover:rotate-12 transition-transform" />
               <span>Built for Modern Creators</span>
               <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-[#3B82F6] group-hover:translate-x-0.5 transition-all" />
-            </button>
+            </a>
           </div>
         </div>
       </div>

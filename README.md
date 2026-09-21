@@ -10,13 +10,13 @@
 </p>
 
 <p align="center">
-  <a href="https://play.google.com/store/apps/details?id=com.profileos.app" target="_blank" rel="noopener noreferrer">
+  <a href="https://play.google.com/store/apps/details?id=com.printionupstudio.profileos" target="_blank" rel="noopener noreferrer">
     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="64" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://play.google.com/store/apps/details?id=com.profileos.app"><img src="https://img.shields.io/badge/Google_Play-Available_Now-0086F8?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play" /></a>
+  <a href="https://play.google.com/store/apps/details?id=com.printionupstudio.profileos"><img src="https://img.shields.io/badge/Google_Play-Available_Now-0086F8?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play" /></a>
   <img src="https://img.shields.io/badge/Platform-Android_8.0+-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android 8.0+" />
   <img src="https://img.shields.io/badge/Privacy-100%25_Offline-10B981?style=for-the-badge" alt="100% Offline Privacy" />
   <img src="https://img.shields.io/badge/Studio-PrintionUp_Studio-FA5A00?style=for-the-badge" alt="PrintionUp Studio" />
@@ -38,15 +38,15 @@ This repository hosts the **official personal showcase website** for ProfileOS. 
 The official Android app is live on Google Play with zero ads, zero telemetry, and instant setup:
 
 <p align="center">
-  <a href="https://play.google.com/store/apps/details?id=com.profileos.app" target="_blank" rel="noopener noreferrer">
+  <a href="https://play.google.com/store/apps/details?id=com.printionupstudio.profileos" target="_blank" rel="noopener noreferrer">
     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="74" />
   </a>
 </p>
 
 | Metric / Specification | Detail |
 | :--- | :--- |
-| **Official Store Link** | [**play.google.com/store/apps/details?id=com.profileos.app**](https://play.google.com/store/apps/details?id=com.profileos.app) |
-| **Package Identifier** | `com.profileos.app` |
+| **Official Store Link** | [**play.google.com/store/apps/details?id=com.printionupstudio.profileos**](https://play.google.com/store/apps/details?id=com.printionupstudio.profileos) |
+| **Package Identifier** | `com.printionupstudio.profileos` |
 | **Platform Compatibility** | Android 8.0 (Oreo / API Level 26) through Android 15+ |
 | **Data Storage Architecture** | 100% On-Device Local SQLite / Room Database |
 | **Internet & Cloud Permissions** | None (Operates completely offline with zero server sync) |
@@ -254,7 +254,7 @@ Stay connected with the creator of ProfileOS across verified channels:
 - 📘 **Facebook**: [PrintionUp Studio](https://www.facebook.com/share/1KB57XrtVj/)
 - 🦋 **Bluesky**: [@printionupstudio.bsky.social](https://bsky.app/profile/printionupstudio.bsky.social)
 - 📌 **Pinterest**: [PrintionUp Studio](https://pin.it/3acx5HGdB)
-- ▶️ **Google Play Store**: [ProfileOS on Google Play](https://play.google.com/store/apps/details?id=com.profileos.app)
+- ▶️ **Google Play Store**: [ProfileOS on Google Play](https://play.google.com/store/apps/details?id=com.printionupstudio.profileos)
 
 ---
 

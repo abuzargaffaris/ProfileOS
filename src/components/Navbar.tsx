@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ProfileOSLogo } from './Logo';
 import { GooglePlayIcon } from './SocialIcons';
 import { PageTab } from '../types';
+import { PLAY_STORE_URL, getUrlForTab } from '../utils/navigation';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
@@ -19,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate }) => {
     { label: 'How It Works', tab: 'how-it-works' },
     { label: 'App Preview', tab: 'preview' },
     { label: 'Supported Platforms', tab: 'platforms' },
+    { label: 'Blog', tab: 'blog' },
     { label: 'Help Center', tab: 'help' },
     { label: 'About', tab: 'about' },
   ];
@@ -29,28 +31,37 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: PageTab) => {
+    if (!e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+      e.preventDefault();
+      handleNavClick(tab);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand Logo */}
-        <button
-          onClick={() => handleNavClick('home')}
+        <a
+          href={getUrlForTab('home')}
+          onClick={(e) => handleLinkClick(e, 'home')}
           className="cursor-pointer flex items-center gap-2 group border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-xl"
           id="navbar-brand-logo"
           aria-label="ProfileOS Home"
           title="ProfileOS Home"
         >
-          <ProfileOSLogo size="md" onClick={() => handleNavClick('home')} />
-        </button>
+          <ProfileOSLogo size="md" />
+        </a>
 
         {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-2" aria-label="Main Navigation">
           {navItems.map(item => {
             const isActive = activeTab === item.tab;
             return (
-              <button
+              <a
                 key={item.tab}
-                onClick={() => handleNavClick(item.tab)}
+                href={getUrlForTab(item.tab)}
+                onClick={(e) => handleLinkClick(e, item.tab)}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   isActive
                     ? 'bg-blue-50 text-[#3B82F6]'
@@ -59,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate }) => {
                 id={`nav-link-${item.tab}`}
               >
                 {item.label}
-              </button>
+              </a>
             );
           })}
         </nav>
@@ -67,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate }) => {
         {/* Desktop Action Buttons */}
         <div className="hidden lg:flex items-center gap-3">
           <a
-            href="https://play.google.com/store/apps/details?id=com.profileos.app"
+            href={PLAY_STORE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="px-4.5 py-2 rounded-full bg-slate-950 hover:bg-black text-white text-xs font-bold shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer flex items-center gap-2 group border border-slate-800 hover:border-slate-700"
@@ -102,14 +113,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate }) => {
           id="mobile-drawer-menu"
         >
           <div className="pb-3 border-b border-slate-100 flex items-center justify-between px-1 mb-1">
-            <button
-              onClick={() => handleNavClick('home')}
+            <a
+              href={getUrlForTab('home')}
+              onClick={(e) => handleLinkClick(e, 'home')}
               className="cursor-pointer text-left border-0 bg-transparent p-0 focus:outline-none"
               aria-label="ProfileOS Home"
               title="ProfileOS Home"
             >
-              <ProfileOSLogo size="sm" onClick={() => handleNavClick('home')} />
-            </button>
+              <ProfileOSLogo size="sm" />
+            </a>
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
               Navigation
             </span>
@@ -118,9 +130,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate }) => {
           {navItems.map(item => {
             const isActive = activeTab === item.tab;
             return (
-              <button
+              <a
                 key={item.tab}
-                onClick={() => handleNavClick(item.tab)}
+                href={getUrlForTab(item.tab)}
+                onClick={(e) => handleLinkClick(e, item.tab)}
                 className={`w-full text-left px-4 py-3 rounded-2xl text-sm font-bold transition-colors cursor-pointer flex items-center justify-between ${
                   isActive
                     ? 'bg-blue-50 text-[#3B82F6]'
@@ -129,13 +142,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate }) => {
               >
                 <span>{item.label}</span>
                 {isActive && <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />}
-              </button>
+              </a>
             );
           })}
 
           <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
             <a
-              href="https://play.google.com/store/apps/details?id=com.profileos.app"
+              href={PLAY_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full px-5 py-3 rounded-2xl bg-black hover:bg-slate-900 text-white shadow-md hover:shadow-xl transition-all duration-200 cursor-pointer flex items-center justify-center gap-3 group border border-slate-800 hover:border-slate-700 active:scale-[0.99]"
@@ -153,13 +166,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onNavigate }) => {
               <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all ml-0.5" />
             </a>
 
-            <button
-              onClick={() => handleNavClick('preview')}
+            <a
+              href={getUrlForTab('preview')}
+              onClick={(e) => handleLinkClick(e, 'preview')}
               className="w-full py-3 rounded-full bg-[#3B82F6] text-white text-xs font-extrabold shadow-sm transition-colors cursor-pointer flex items-center justify-center gap-2"
             >
               <span>Explore All 10 Screens</span>
               <ArrowUpRight className="w-4 h-4" />
-            </button>
+            </a>
           </div>
         </div>
       )}

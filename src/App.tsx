@@ -10,17 +10,111 @@ import { AppPreviewPage } from './pages/AppPreviewPage';
 import { PlatformsPage } from './pages/PlatformsPage';
 import { HelpCenterPage } from './pages/HelpCenterPage';
 import { AboutPage } from './pages/AboutPage';
+import { BlogPage } from './pages/BlogPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsPage } from './pages/TermsPage';
 import { QrModalDemo } from './components/demos/QrModalDemo';
 import { ToastContainer } from './components/Toast';
-import { getTabFromUrl, updateUrlForTab } from './utils/navigation';
+import { getTabFromUrl, updateUrlForTab, getFullUrlForTab } from './utils/navigation';
+
+const TAB_METADATA: Record<PageTab, { title: string; description: string; keywords: string }> = {
+  home: {
+    title: 'ProfileOS — All Your Profiles. One Place.',
+    description: 'ProfileOS is the 100% offline, privacy-first digital profile and identity manager for Android. Organize your social handles, portfolio links, and profiles in one clean hub with zero tracking.',
+    keywords: 'ProfileOS, profile organizer, digital identity manager, social media links, social handles organizer, offline profile manager, link in bio alternative, Android offline app, QR code profile generator, PrintionUp Studio, local-first link organizer, com.printionupstudio.profileos, offline linktree alternative, private social handle clipboard, swipe to share profiles, offline QR codes for links, room database profile manager, no cloud social link organizer, smart share templates'
+  },
+  features: {
+    title: 'Features & Capabilities — ProfileOS | Offline Identity Manager',
+    description: 'Discover ProfileOS features: Swipe Right to copy links, Swipe Left for Smart Share templates, Privacy Shield masking, QR code generation, and 229+ platforms.',
+    keywords: 'ProfileOS features, swipe right copy link, swipe left smart share, dynamic share templates, privacy shield mode, offline QR code generator, 229+ platforms, custom link favicon, local SQLite database, Android Room storage'
+  },
+  preview: {
+    title: 'Interactive App Preview & Screens — ProfileOS',
+    description: 'Experience the interactive ProfileOS mobile preview. Discover gestures, dark mode, privacy mode, QR code presenter, and instant search.',
+    keywords: 'ProfileOS preview, interactive mobile mockup, ProfileOS Android app demo, gestures demo, dark mode offline app, privacy shield demo'
+  },
+  'how-it-works': {
+    title: 'How ProfileOS Works — Quick Guide & Gesture Shortcuts',
+    description: 'Learn how ProfileOS keeps your social profiles organized with local SQLite storage, dynamic share tokens, and zero cloud tracking.',
+    keywords: 'how ProfileOS works, organize social handles, create profile spaces, swipe right copy link, swipe left share template, offline identity manager tutorial, smart tokens guide'
+  },
+  platforms: {
+    title: '229+ Supported Platforms & Custom Links — ProfileOS',
+    description: 'Browse all 229+ supported social media, developer, design, and creator platforms in ProfileOS, plus unlimited custom URLs.',
+    keywords: 'ProfileOS platforms, 229+ supported social networks, developer links, github, instagram, youtube, custom website favicon, local link library'
+  },
+  about: {
+    title: 'About ProfileOS & PrintionUp Studio — Privacy-First Mission',
+    description: 'Read the story behind ProfileOS, built by PrintionUp Studio to give users complete offline ownership of their digital identity without ads or cloud bloat.',
+    keywords: 'about ProfileOS, PrintionUp Studio, privacy-first mission, local-first software, com.printionupstudio.profileos, Android offline utility'
+  },
+  privacy: {
+    title: 'Privacy Policy — 100% On-Device Offline Architecture | ProfileOS',
+    description: 'Official Privacy Policy for ProfileOS. We do not collect, transmit, store, or sell any personal data. Everything remains 100% on your device.',
+    keywords: 'ProfileOS privacy policy, zero data collection, offline android app privacy, no cloud tracking, local storage privacy'
+  },
+  terms: {
+    title: 'Terms of Service — ProfileOS by PrintionUp Studio',
+    description: 'Terms of Service for ProfileOS application and website. Simple, transparent, and user-first.',
+    keywords: 'ProfileOS terms of service, PrintionUp Studio terms, user-first license'
+  },
+  help: {
+    title: 'Help Center & Knowledge Base — ProfileOS',
+    description: 'Find answers to frequently asked questions about ProfileOS offline storage, gesture shortcuts, backup exports, and privacy protection.',
+    keywords: 'ProfileOS help center, FAQ, backup export JSON, offline profile manager questions, gesture shortcuts help'
+  },
+  blog: {
+    title: 'Blog & Engineering Insights — ProfileOS',
+    description: 'Explore in-depth articles on ProfileOS local-first architecture, Android Automatic Backup, SQLite Room design, and open JSON/Markdown data standards.',
+    keywords: 'ProfileOS blog, local-first architecture, backup and restore, SQLite Room database, zero telemetry, Android Auto Backup for Apps, privacy engineering'
+  }
+};
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<PageTab>(() => getTabFromUrl());
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const [selectedQrPlatform, setSelectedQrPlatform] = useState<SocialPlatform | undefined>(undefined);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  // Synchronize document title, description, canonical and og:url for SEO/AEO
+  useEffect(() => {
+    const meta = TAB_METADATA[activeTab];
+    if (meta) {
+      document.title = meta.title;
+      const descTag = document.querySelector('meta[name="description"]');
+      if (descTag) {
+        descTag.setAttribute('content', meta.description);
+      }
+      const keywordsTag = document.querySelector('meta[name="keywords"]');
+      if (keywordsTag && meta.keywords) {
+        keywordsTag.setAttribute('content', meta.keywords);
+      }
+      const ogTitleTag = document.querySelector('meta[property="og:title"]');
+      if (ogTitleTag) {
+        ogTitleTag.setAttribute('content', meta.title);
+      }
+      const ogDescTag = document.querySelector('meta[property="og:description"]');
+      if (ogDescTag) {
+        ogDescTag.setAttribute('content', meta.description);
+      }
+      const twitterTitleTag = document.querySelector('meta[name="twitter:title"]');
+      if (twitterTitleTag) {
+        twitterTitleTag.setAttribute('content', meta.title);
+      }
+      const twitterDescTag = document.querySelector('meta[name="twitter:description"]');
+      if (twitterDescTag) {
+        twitterDescTag.setAttribute('content', meta.description);
+      }
+      const canonicalTag = document.querySelector('link[rel="canonical"]');
+      if (canonicalTag) {
+        canonicalTag.setAttribute('href', getFullUrlForTab(activeTab));
+      }
+      const ogUrlTag = document.querySelector('meta[property="og:url"]');
+      if (ogUrlTag) {
+        ogUrlTag.setAttribute('content', getFullUrlForTab(activeTab));
+      }
+    }
+  }, [activeTab]);
 
   // Synchronize clean URLs without '#' symbol and handle browser Back/Forward
   useEffect(() => {
@@ -132,6 +226,10 @@ export default function App() {
           )}
 
           {activeTab === 'about' && <AboutPage onNavigate={handleNavigate} />}
+
+          {activeTab === 'blog' && (
+            <BlogPage onNavigate={handleNavigate} onNotify={handleNotify} />
+          )}
 
           {activeTab === 'privacy' && <PrivacyPolicyPage onNavigate={handleNavigate} />}
 
